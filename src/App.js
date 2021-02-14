@@ -1,7 +1,14 @@
 import React from 'react';
+import GlobalStyle from './theme/GlobalStyles';
+import QuickQuote from './pages/QuickQuote';
 
 function App() {
-  return <div>OFX currency converter</div>;
+  return (
+    <div>
+      <GlobalStyle />
+      <QuickQuote />
+    </div>
+  );
 }
 
 export default App;
