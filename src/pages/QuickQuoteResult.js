@@ -65,8 +65,6 @@ const QuickQuoteResult = ({ location }) => {
   const toCurrencyValue = currencyValue * customerRate;
   const toCurrencyFormatted = formatNumber(toCurrencyValue.toFixed(2));
 
-  console.log(params);
-
   return (
     <QuickQuoteLayout contentBgColour="#fbfbfb">
       <ResultContainer>
