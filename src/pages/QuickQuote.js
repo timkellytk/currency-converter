@@ -6,19 +6,20 @@ import countryCodes from '../data/countryCodes.json';
 import countryOptions from '../data/currenciesData';
 import QuickQuoteLayout from '../components/QuickQuoteLayout';
 import Button from '../components/Button';
+import { COLORS, SPACING } from '../theme/constants';
 
 const FormSection = styled.div`
-  padding: 25px;
+  padding: ${SPACING.lg};
   background-color: ${(props) => props.bgColour};
 
   @media (max-width: 600px) {
-    padding: 20px;
+    padding: ${SPACING.md};
   }
 `;
 
 const FormDivider = styled.div`
   height: 1px;
-  background-color: lightgray;
+  background-color: ${COLORS.borderGray};
 `;
 
 const TwoInputGrid = styled.div`
@@ -28,14 +29,14 @@ const TwoInputGrid = styled.div`
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
-    margin-bottom: 20px;
+    margin-bottom: ${SPACING.md};
   }
 `;
 
 const StyledFormField = styled(Form.Field)`
   &&&&& {
     label {
-      margin-bottom: 10px;
+      margin-bottom: ${SPACING.sm};
       font-weight: 400;
     }
   }
@@ -44,7 +45,7 @@ const StyledFormField = styled(Form.Field)`
 const SubmitContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: ${SPACING.lg};
 `;
 
 const TelephoneContainer = styled.div`
@@ -54,7 +55,7 @@ const TelephoneContainer = styled.div`
 
 const PhoneDropdown = styled(Dropdown)`
   &&& {
-    background-color: #f9f9f9;
+    background-color: ${COLORS.bgGray};
   }
 `;
 
@@ -137,7 +138,7 @@ const QuickQuote = ({
         </StyledFormField>
       </FormSection>
       <FormDivider />
-      <FormSection bgColour="#f9f9f9">
+      <FormSection bgColour={COLORS.bgGray}>
         <TwoInputGrid>
           <StyledFormField required>
             <label htmlFor="from-currency">From Currency</label>

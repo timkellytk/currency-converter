@@ -6,26 +6,27 @@ import PropTypes from 'prop-types';
 import QuickQuoteLayout from '../components/QuickQuoteLayout';
 import Button from '../components/Button';
 import formatNumber from '../utilities/formatNumber';
+import { COLORS, SPACING } from '../theme/constants';
 
 const ResultContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 20px;
+  padding: ${SPACING.xl} ${SPACING.md};
 `;
 
 const SmallHeading = styled.p`
   font-size: 2em;
   font-weight: lighter;
-  margin-bottom: 5px;
+  margin-bottom: ${SPACING.xs};
 `;
 
 const ExchangeRateHeading = styled.h3`
-  color: #08b68a;
+  color: ${COLORS.green};
   font-size: 4.5em;
   font-weight: lighter;
-  margin-bottom: 20px;
-  margin-top: 10px;
+  margin-bottom: ${SPACING.md};
+  margin-top: ${SPACING.sm};
 `;
 
 const CurrencyHeading = styled.h4`
@@ -34,12 +35,12 @@ const CurrencyHeading = styled.h4`
   margin-top: 0px;
 
   span {
-    color: #057db1;
+    color: ${COLORS.primary};
   }
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 50px;
+  margin-top: 80px;
 `;
 
 const QuickQuoteResult = ({ location }) => {

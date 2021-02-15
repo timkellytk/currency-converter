@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
+import { COLORS } from '../theme/constants';
 
 const StyledButton = styled(Button)`
   &&&&& {
@@ -8,7 +9,7 @@ const StyledButton = styled(Button)`
     text-transform: uppercase;
     font-size: 20px;
     font-weight: lighter;
-    background-color: #027db1;
+    background-color: ${COLORS.primary};
     color: white;
 
     @media (max-width: 600px) {

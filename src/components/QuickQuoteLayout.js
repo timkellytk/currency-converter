@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { COLORS, SPACING } from '../theme/constants';
 
 const StyledContainer = styled.div`
   margin: 5% 7.5%;
@@ -14,7 +15,7 @@ const QuickQuoteContainer = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  border: lightgray 1px solid;
+  border: ${COLORS.borderGray} 1px solid;
   border-radius: 2px;
   background-color: ${(props) => props.contentBgColour};
 `;
@@ -25,10 +26,10 @@ const StyledHeading = styled.h1`
 `;
 
 const BlueDivider = styled.div`
-  background-color: #5ec7ff;
+  background-color: ${COLORS.primary};
   height: 1px;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: ${SPACING.md};
 `;
 
 const QuickQuoteLayout = ({ children, contentBgColour }) => (
