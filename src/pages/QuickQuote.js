@@ -72,9 +72,10 @@ const QuickQuote = ({
   handleFromCurrencyChange,
   handleToCurrencyChange,
   handleCurrencyValueChange,
+  handleSubmit,
 }) => (
   <QuickQuoteLayout>
-    <Form size="big">
+    <Form size="big" onSubmit={handleSubmit}>
       <FormSection>
         <TwoFormInputGrid>
           <StyledFormField required>
@@ -188,6 +189,7 @@ QuickQuote.propTypes = {
   handleFromCurrencyChange: PropTypes.func.isRequired,
   handleToCurrencyChange: PropTypes.func.isRequired,
   handleCurrencyValueChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default QuickQuote;

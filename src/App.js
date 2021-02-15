@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import GlobalStyle from './theme/GlobalStyles';
 import QuickQuote from './pages/QuickQuote';
 import QuickQuoteResult from './pages/QuickQuoteResult';
@@ -36,8 +36,18 @@ function App() {
     setCurrencyValue(event.target.value);
   };
 
+  const history = useHistory();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('pre fail console', history);
+    history.push(
+      `/result?fromCurrency=${fromCurrency}&toCurrency=${toCurrency}&currencyValue=${currencyValue}?`
+    );
+  };
+
   return (
-    <Router>
+    <>
       <GlobalStyle />
       <Switch>
         <Route path="/result">
@@ -61,10 +71,11 @@ function App() {
             handleFromCurrencyChange={handleFromCurrencyChange}
             handleToCurrencyChange={handleToCurrencyChange}
             handleCurrencyValueChange={handleCurrencyValueChange}
+            handleSubmit={handleSubmit}
           />
         </Route>
       </Switch>
-    </Router>
+    </>
   );
 }
 
