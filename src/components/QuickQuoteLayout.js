@@ -13,6 +13,12 @@ const QuickQuoteContainer = styled.div`
   max-width: 900px;
 `;
 
+const ContentContainer = styled.div`
+  border: lightgray 1px solid;
+  border-radius: 2px;
+  background-color: ${(props) => props.contentBgColour};
+`;
+
 const StyledHeading = styled.h1`
   font-size: 3em;
   font-weight: 400;
@@ -25,18 +31,25 @@ const BlueDivider = styled.div`
   margin-bottom: 20px;
 `;
 
-const QuickQuoteLayout = ({ children }) => (
+const QuickQuoteLayout = ({ children, contentBgColour }) => (
   <StyledContainer>
     <QuickQuoteContainer>
       <StyledHeading>Quick Quote</StyledHeading>
       <BlueDivider />
-      {children}
+      <ContentContainer contentBgColour={contentBgColour}>
+        {children}
+      </ContentContainer>
     </QuickQuoteContainer>
   </StyledContainer>
 );
 
 QuickQuoteLayout.propTypes = {
   children: PropTypes.node.isRequired,
+  contentBgColour: PropTypes.string,
+};
+
+QuickQuoteLayout.defaultProps = {
+  contentBgColour: null,
 };
 
 export default QuickQuoteLayout;
