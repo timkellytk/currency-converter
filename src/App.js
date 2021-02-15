@@ -42,7 +42,7 @@ function App() {
     event.preventDefault();
     console.log('pre fail console', history);
     history.push(
-      `/result?fromCurrency=${fromCurrency}&toCurrency=${toCurrency}&currencyValue=${currencyValue}?`
+      `/result?fromCurrency=${fromCurrency}&toCurrency=${toCurrency}&currencyValue=${currencyValue}`
     );
   };
 
