@@ -17,10 +17,15 @@ const FormDivider = styled.div`
   background-color: lightgray;
 `;
 
-const TwoFormInputGrid = styled.div`
+const TwoInputGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 1.5em;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    margin-bottom: 20px;
+  }
 `;
 
 const StyledFormField = styled(Form.Field)`
@@ -77,7 +82,7 @@ const QuickQuote = ({
   <QuickQuoteLayout>
     <Form size="big" onSubmit={handleSubmit}>
       <FormSection>
-        <TwoFormInputGrid>
+        <TwoInputGrid>
           <StyledFormField required>
             <label htmlFor="first-name">First Name</label>
             <input
@@ -98,7 +103,7 @@ const QuickQuote = ({
               onChange={handleLastNameChange}
             />
           </StyledFormField>
-        </TwoFormInputGrid>
+        </TwoInputGrid>
         <StyledFormField>
           <Form.Input
             label="Email"
@@ -129,7 +134,7 @@ const QuickQuote = ({
       </FormSection>
       <FormDivider />
       <FormSection bgColour="#f9f9f9">
-        <TwoFormInputGrid>
+        <TwoInputGrid>
           <StyledFormField required>
             <label htmlFor="from-currency">From Currency</label>
             <Dropdown
@@ -152,8 +157,8 @@ const QuickQuote = ({
               options={countryOptions}
             />
           </StyledFormField>
-        </TwoFormInputGrid>
-        <TwoFormInputGrid>
+        </TwoInputGrid>
+        <TwoInputGrid>
           <StyledFormField required>
             <label htmlFor="amount">Amount</label>
             <input
@@ -163,7 +168,7 @@ const QuickQuote = ({
               type="number"
             />
           </StyledFormField>
-        </TwoFormInputGrid>
+        </TwoInputGrid>
         <SubmitContainer>
           <Button type="submit">Get Quote</Button>
         </SubmitContainer>
