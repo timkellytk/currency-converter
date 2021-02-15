@@ -15,11 +15,34 @@ function App() {
   const [toCurrency, setToCurrency] = useState('GBP');
   const [currencyValue, setCurrencyValue] = useState(25000);
 
+  /* Form Error State */
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [lastNameError, setLastNameError] = useState(false);
+  const [currencyValueError, setCurrencyValueError] = useState(false);
+
+  const validName = (name) => name.length > 0;
+  const validCurrencyValue = (amount) => amount > 0;
+
+  /* Form Handling */
   const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
+    const newFirstName = event.target.value;
+
+    setFirstName(newFirstName);
+    if (validName(newFirstName)) {
+      setFirstNameError(false);
+    } else {
+      setFirstNameError(true);
+    }
   };
   const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
+    const newLastName = event.target.value;
+
+    setLastName(newLastName);
+    if (validName(newLastName)) {
+      setLastNameError(false);
+    } else {
+      setLastNameError(true);
+    }
   };
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -33,16 +56,41 @@ function App() {
   const handleFromCurrencyChange = (e, { value }) => setFromCurrency(value);
   const handleToCurrencyChange = (e, { value }) => setToCurrency(value);
   const handleCurrencyValueChange = (event) => {
-    setCurrencyValue(event.target.value);
+    const newCurrencyValue = event.target.value;
+    setCurrencyValue(newCurrencyValue);
+    if (validCurrencyValue(newCurrencyValue)) {
+      setCurrencyValueError(false);
+    } else {
+      setCurrencyValueError(true);
+    }
+  };
+
+  /* Form Submit Handling */
+  const isFormValid = () => {
+    let validForm = true;
+    if (!validName(firstName)) {
+      setFirstNameError(true);
+      validForm = false;
+    }
+    if (!validName(lastName)) {
+      setLastNameError(true);
+      validForm = false;
+    }
+    if (!validCurrencyValue(currencyValue)) {
+      setCurrencyValueError(true);
+      validForm = false;
+    }
+    return validForm;
   };
 
   const history = useHistory();
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    history.push(
-      `/result?fromCurrency=${fromCurrency}&toCurrency=${toCurrency}&currencyValue=${currencyValue}`
-    );
+    if (isFormValid()) {
+      history.push(
+        `/result?fromCurrency=${fromCurrency}&toCurrency=${toCurrency}&currencyValue=${currencyValue}`
+      );
+    }
   };
 
   return (
@@ -55,13 +103,16 @@ function App() {
         <Route path="/">
           <QuickQuote
             firstName={firstName}
+            firstNameError={firstNameError}
             lastName={lastName}
+            lastNameError={lastNameError}
             email={email}
             countryCode={countryCode}
             phone={phone}
             fromCurrency={fromCurrency}
             toCurrency={toCurrency}
             currencyValue={currencyValue}
+            currencyValueError={currencyValueError}
             handleFirstNameChange={handleFirstNameChange}
             handleLastNameChange={handleLastNameChange}
             handleEmailChange={handleEmailChange}

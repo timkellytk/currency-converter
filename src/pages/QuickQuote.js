@@ -67,13 +67,16 @@ const StyledPhoneDropdown = styled(PhoneDropdown)`
 
 const QuickQuote = ({
   firstName,
+  firstNameError,
   lastName,
+  lastNameError,
   email,
   countryCode,
   phone,
   fromCurrency,
   toCurrency,
   currencyValue,
+  currencyValueError,
   handleFirstNameChange,
   handleLastNameChange,
   handleEmailChange,
@@ -89,21 +92,21 @@ const QuickQuote = ({
       <FormSection>
         <TwoInputGrid>
           <StyledFormField required>
-            <label htmlFor="first-name">First Name</label>
-            <input
-              placeholder="First Name"
-              type="text"
-              id="first-name"
+            <Form.Input
+              error={firstNameError ? 'Please enter your first name' : false}
+              fluid
+              label="First name"
+              placeholder="First name"
               value={firstName}
               onChange={handleFirstNameChange}
             />
           </StyledFormField>
           <StyledFormField required>
-            <label htmlFor="last-name">Last Name</label>
-            <input
-              placeholder="Last Name"
-              type="text"
-              id="last-name"
+            <Form.Input
+              error={lastNameError ? 'Please enter your last name' : false}
+              fluid
+              label="Last name"
+              placeholder="Last name"
               value={lastName}
               onChange={handleLastNameChange}
             />
@@ -165,12 +168,17 @@ const QuickQuote = ({
         </TwoInputGrid>
         <TwoInputGrid>
           <StyledFormField required>
-            <label htmlFor="amount">Amount</label>
-            <input
+            <Form.Input
+              error={
+                currencyValueError
+                  ? 'Please enter an amount greater than 0'
+                  : false
+              }
+              fluid
+              type="number"
+              label="Amount"
               value={currencyValue}
               onChange={handleCurrencyValueChange}
-              id="amount"
-              type="number"
             />
           </StyledFormField>
         </TwoInputGrid>
@@ -184,13 +192,16 @@ const QuickQuote = ({
 
 QuickQuote.propTypes = {
   firstName: PropTypes.string.isRequired,
+  firstNameError: PropTypes.bool.isRequired,
   lastName: PropTypes.string.isRequired,
+  lastNameError: PropTypes.bool.isRequired,
   email: PropTypes.string.isRequired,
   countryCode: PropTypes.string.isRequired,
   phone: PropTypes.string.isRequired,
   fromCurrency: PropTypes.string.isRequired,
   toCurrency: PropTypes.string.isRequired,
   currencyValue: PropTypes.number.isRequired,
+  currencyValueError: PropTypes.bool.isRequired,
   handleFirstNameChange: PropTypes.func.isRequired,
   handleLastNameChange: PropTypes.func.isRequired,
   handleEmailChange: PropTypes.func.isRequired,
