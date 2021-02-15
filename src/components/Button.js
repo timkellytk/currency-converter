@@ -6,10 +6,15 @@ const StyledButton = styled(Button)`
     padding: 20px 90px;
     border-radius: 40px;
     text-transform: uppercase;
-    font-size: 1em;
+    font-size: 20px;
     font-weight: lighter;
     background-color: #027db1;
     color: white;
+
+    @media (max-width: 600px) {
+      padding: 20px 50px;
+      font-size: 16px;
+    }
   }
 `;
 

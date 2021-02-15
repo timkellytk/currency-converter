@@ -10,6 +10,10 @@ import Button from '../components/Button';
 const FormSection = styled.div`
   padding: 25px;
   background-color: ${(props) => props.bgColour};
+
+  @media (max-width: 600px) {
+    padding: 20px;
+  }
 `;
 
 const FormDivider = styled.div`
