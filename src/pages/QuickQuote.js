@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Form, Dropdown } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import countryCodes from '../data/countryCodes.json';
 import countryOptions from '../data/currenciesData';
 import QuickQuoteLayout from '../components/QuickQuoteLayout';
@@ -48,88 +49,145 @@ const PhoneDropdown = styled(Dropdown)`
   }
 `;
 
-const QuickQuote = () => {
-  const [fromCurrency, setFromCurrency] = useState('AUD');
-  const [toCurrency, setToCurrency] = useState('GBP');
+const StyledPhoneDropdown = styled(PhoneDropdown)`
+  &&&& {
+    min-width: 100px;
+  }
+`;
 
-  const handleFromCurrencyChange = (e, { value }) => setFromCurrency(value);
-  const handleToCurrencyChange = (e, { value }) => setToCurrency(value);
-
-  const StyledPhoneDropdown = styled(PhoneDropdown)`
-    &&&& {
-      min-width: 100px;
-    }
-  `;
-
-  return (
-    <QuickQuoteLayout>
-      <Form size="big">
-        <FormSection>
-          <TwoFormInputGrid>
-            <StyledFormField required>
-              <label htmlFor="first-name">First Name</label>
-              <input placeholder="First Name" type="text" id="first-name" />
-            </StyledFormField>
-            <StyledFormField required>
-              <label htmlFor="last-name">Last Name</label>
-              <input placeholder="Last Name" type="text" id="last-name" />
-            </StyledFormField>
-          </TwoFormInputGrid>
-          <StyledFormField>
-            <Form.Input label="Email" placeholder="joe@schmoe.com" />
+const QuickQuote = ({
+  firstName,
+  lastName,
+  email,
+  countryCode,
+  phone,
+  fromCurrency,
+  toCurrency,
+  currencyValue,
+  handleFirstNameChange,
+  handleLastNameChange,
+  handleEmailChange,
+  handleCountryCodeChange,
+  handlePhoneChange,
+  handleFromCurrencyChange,
+  handleToCurrencyChange,
+  handleCurrencyValueChange,
+}) => (
+  <QuickQuoteLayout>
+    <Form size="big">
+      <FormSection>
+        <TwoFormInputGrid>
+          <StyledFormField required>
+            <label htmlFor="first-name">First Name</label>
+            <input
+              placeholder="First Name"
+              type="text"
+              id="first-name"
+              value={firstName}
+              onChange={handleFirstNameChange}
+            />
           </StyledFormField>
-          <StyledFormField>
-            <label htmlFor="mobile">Telephone / Mobile</label>
-            <TelephoneContainer>
-              <StyledPhoneDropdown
-                text="+61"
-                search
-                selection
-                options={countryCodes}
-              />
-              <input placeholder="" type="tel" id="mobile" />
-            </TelephoneContainer>
+          <StyledFormField required>
+            <label htmlFor="last-name">Last Name</label>
+            <input
+              placeholder="Last Name"
+              type="text"
+              id="last-name"
+              value={lastName}
+              onChange={handleLastNameChange}
+            />
           </StyledFormField>
-        </FormSection>
-        <FormDivider />
-        <FormSection bgColour="#f9f9f9">
-          <TwoFormInputGrid>
-            <StyledFormField required>
-              <label htmlFor="from-currency">From Currency</label>
-              <Dropdown
-                fluid
-                search
-                selection
-                value={fromCurrency}
-                onChange={handleFromCurrencyChange}
-                options={countryOptions}
-              />
-            </StyledFormField>
-            <StyledFormField required>
-              <label htmlFor="to-currency">To Currency</label>
-              <Dropdown
-                fluid
-                search
-                selection
-                value={toCurrency}
-                onChange={handleToCurrencyChange}
-                options={countryOptions}
-              />
-            </StyledFormField>
-          </TwoFormInputGrid>
-          <TwoFormInputGrid>
-            <StyledFormField required>
-              <label htmlFor="amount">Amount</label>
-              <input value="25,000.00" id="amount" type="text" />
-            </StyledFormField>
-          </TwoFormInputGrid>
-          <SubmitContainer>
-            <Button type="submit">Get Quote</Button>
-          </SubmitContainer>
-        </FormSection>
-      </Form>
-    </QuickQuoteLayout>
-  );
+        </TwoFormInputGrid>
+        <StyledFormField>
+          <Form.Input
+            label="Email"
+            placeholder="joe@schmoe.com"
+            value={email}
+            onChange={handleEmailChange}
+          />
+        </StyledFormField>
+        <StyledFormField>
+          <label htmlFor="mobile">Telephone / Mobile</label>
+          <TelephoneContainer>
+            <StyledPhoneDropdown
+              value={countryCode}
+              onChange={handleCountryCodeChange}
+              search
+              selection
+              options={countryCodes}
+            />
+            <input
+              placeholder="420 316 322"
+              type="tel"
+              id="mobile"
+              value={phone}
+              onChange={handlePhoneChange}
+            />
+          </TelephoneContainer>
+        </StyledFormField>
+      </FormSection>
+      <FormDivider />
+      <FormSection bgColour="#f9f9f9">
+        <TwoFormInputGrid>
+          <StyledFormField required>
+            <label htmlFor="from-currency">From Currency</label>
+            <Dropdown
+              fluid
+              search
+              selection
+              value={fromCurrency}
+              onChange={handleFromCurrencyChange}
+              options={countryOptions}
+            />
+          </StyledFormField>
+          <StyledFormField required>
+            <label htmlFor="to-currency">To Currency</label>
+            <Dropdown
+              fluid
+              search
+              selection
+              value={toCurrency}
+              onChange={handleToCurrencyChange}
+              options={countryOptions}
+            />
+          </StyledFormField>
+        </TwoFormInputGrid>
+        <TwoFormInputGrid>
+          <StyledFormField required>
+            <label htmlFor="amount">Amount</label>
+            <input
+              value={currencyValue}
+              onChange={handleCurrencyValueChange}
+              id="amount"
+              type="number"
+            />
+          </StyledFormField>
+        </TwoFormInputGrid>
+        <SubmitContainer>
+          <Button type="submit">Get Quote</Button>
+        </SubmitContainer>
+      </FormSection>
+    </Form>
+  </QuickQuoteLayout>
+);
+
+QuickQuote.propTypes = {
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  countryCode: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+  fromCurrency: PropTypes.string.isRequired,
+  toCurrency: PropTypes.string.isRequired,
+  currencyValue: PropTypes.number.isRequired,
+  handleFirstNameChange: PropTypes.func.isRequired,
+  handleLastNameChange: PropTypes.func.isRequired,
+  handleEmailChange: PropTypes.func.isRequired,
+  handleCountryCodeChange: PropTypes.func.isRequired,
+  handlePhoneChange: PropTypes.func.isRequired,
+  handleFromCurrencyChange: PropTypes.func.isRequired,
+  handleToCurrencyChange: PropTypes.func.isRequired,
+  handleCurrencyValueChange: PropTypes.func.isRequired,
 };
 
 export default QuickQuote;
