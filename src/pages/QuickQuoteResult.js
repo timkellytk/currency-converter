@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import queryString from 'query-string';
+import PropTypes from 'prop-types';
 import QuickQuoteLayout from '../components/QuickQuoteLayout';
 import Button from '../components/Button';
+import formatNumber from '../utilities/formatNumber';
 
 const ResultContainer = styled.div`
   display: flex;
@@ -38,29 +42,60 @@ const ButtonContainer = styled.div`
   margin-top: 50px;
 `;
 
-const QuickQuoteResult = () => {
-  console.log('loaded');
+const QuickQuoteResult = ({ location }) => {
+  const params = queryString.parse(location.search);
+  const fromCurrency = params.fromCurrency || 'AUD';
+  const toCurrency = params.toCurrency || 'GBP';
+  const currencyValue = parseInt(params.currencyValue, 10) || 0;
+  const [customerRate, setCustomerRate] = useState(0);
+
+  useEffect(() => {
+    fetch(
+      `https://api.ofx.com/PublicSite.ApiService/OFX/spotrate/Individual/${fromCurrency}/${toCurrency}/${currencyValue}?format=json`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.customerRate !== customerRate) {
+          setCustomerRate(data.CustomerRate);
+        }
+      });
+  }, [customerRate, fromCurrency, toCurrency, currencyValue]);
+
+  const fromCurrencyFormatted = formatNumber(currencyValue.toFixed(2));
+  const toCurrencyValue = currencyValue * customerRate;
+  const toCurrencyFormatted = formatNumber(toCurrencyValue.toFixed(2));
+
+  console.log(params);
+
   return (
     <QuickQuoteLayout contentBgColour="#fbfbfb">
       <ResultContainer>
         <SmallHeading>OFX Customer Rate</SmallHeading>
-        <ExchangeRateHeading>0.7618</ExchangeRateHeading>
+        <ExchangeRateHeading>{customerRate}</ExchangeRateHeading>
         <div>
           <SmallHeading>From</SmallHeading>
           <CurrencyHeading>
-            AUD <span>25,000.00</span>
+            {fromCurrency} <span>{fromCurrencyFormatted}</span>
           </CurrencyHeading>
           <SmallHeading>To</SmallHeading>
           <CurrencyHeading>
-            USD <span>19,045.00</span>
+            {toCurrency} <span>{toCurrencyFormatted}</span>
           </CurrencyHeading>
         </div>
         <ButtonContainer>
-          <Button>Start New Quote</Button>
+          <Button as={Link} to="/">
+            Start New Quote
+          </Button>
         </ButtonContainer>
       </ResultContainer>
     </QuickQuoteLayout>
   );
 };
 
-export default QuickQuoteResult;
+QuickQuoteResult.propTypes = {
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
+};
+
+export default withRouter(QuickQuoteResult);
