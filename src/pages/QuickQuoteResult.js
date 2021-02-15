@@ -66,10 +66,18 @@ const QuickQuoteResult = ({ location }) => {
   const toCurrencyValue = currencyValue * customerRate;
   const toCurrencyFormatted = formatNumber(toCurrencyValue.toFixed(2));
 
+  const Result = () => <SmallHeading>OFX Customer Rate</SmallHeading>;
+
+  const Error = () => (
+    <SmallHeading>
+      Error: OFX Does Not Convert Money To {toCurrency}
+    </SmallHeading>
+  );
+
   return (
     <QuickQuoteLayout contentBgColour="#fbfbfb">
       <ResultContainer>
-        <SmallHeading>OFX Customer Rate</SmallHeading>
+        {toCurrencyValue ? <Result /> : <Error />}
         <ExchangeRateHeading>{customerRate}</ExchangeRateHeading>
         <div>
           <SmallHeading>From</SmallHeading>
