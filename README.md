@@ -2,7 +2,7 @@
 
 By [Tim Kelly](https://timkelly.dev/)
 
-[![Currency Converter preview](./readme-screenshot.png)](https://timkellytk.github.io/currency-converter/)
+[![Currency Converter preview](./readme-preview.png)](https://timkellytk.github.io/currency-converter/)
 
 ## Hosted Link
 
@@ -15,7 +15,7 @@ By [Tim Kelly](https://timkelly.dev/)
 3. Install dependencies using `npm install`
 4. Run tests using `npm test`
 5. Start your server using `npm start`
-6. Navigate to app in [browser](http://localhost:3000)
+6. Navigate to the app in the [browser](http://localhost:3000)
 7. Enjoy!
 
 ## Technologies
@@ -26,4 +26,13 @@ By [Tim Kelly](https://timkelly.dev/)
 - Styled Components
 - HTML
 - CSS
-- [create-react-app](https://goo.gl/26jfy4)
+- create-react-app
+
+## Suggested Improvements
+
+If provided more time, I would make the following improvements:
+
+- Style the dropdown icon as shown in OFX's screenshots
+- Create a mask for the `Amount` to separate the number on thousands (e.g. 25,000.00)
+- Refactor state form logic using the [formik](https://formik.org/) library
+- Get all the quote requests saved to a database
