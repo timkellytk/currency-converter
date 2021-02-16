@@ -3,6 +3,7 @@
     "react-app",
     "airbnb",
     "plugin:jsx-a11y/recommended",
+    "plugin:cypress/recommended",
     "prettier",
     "prettier/react"
   ],

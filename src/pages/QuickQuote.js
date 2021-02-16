@@ -96,6 +96,7 @@ const QuickQuote = ({
               error={firstNameError ? 'Please enter your first name' : false}
               fluid
               label="First name"
+              id="first-name"
               placeholder="First name"
               value={firstName}
               onChange={handleFirstNameChange}
@@ -105,6 +106,7 @@ const QuickQuote = ({
             <Form.Input
               error={lastNameError ? 'Please enter your last name' : false}
               fluid
+              id="last-name"
               label="Last name"
               placeholder="Last name"
               value={lastName}
@@ -176,6 +178,7 @@ const QuickQuote = ({
               }
               fluid
               type="number"
+              id="amount"
               label="Amount"
               value={currencyValue}
               onChange={handleCurrencyValueChange}

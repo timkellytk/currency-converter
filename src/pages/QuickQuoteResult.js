@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import styled from 'styled-components';
-import queryString from 'query-string';
-import PropTypes from 'prop-types';
-import QuickQuoteLayout from '../components/QuickQuoteLayout';
-import Button from '../components/Button';
-import formatNumber from '../utilities/formatNumber';
-import { COLORS, SPACING } from '../theme/constants';
+import React, { useEffect, useState } from "react";
+import { withRouter, Link } from "react-router-dom";
+import styled from "styled-components";
+import queryString from "query-string";
+import PropTypes from "prop-types";
+import QuickQuoteLayout from "../components/QuickQuoteLayout";
+import Button from "../components/Button";
+import formatNumber from "../utilities/formatNumber";
+import { COLORS, SPACING } from "../theme/constants";
 
 const ResultContainer = styled.div`
   display: flex;
@@ -45,8 +45,8 @@ const ButtonContainer = styled.div`
 
 const QuickQuoteResult = ({ location }) => {
   const params = queryString.parse(location.search);
-  const fromCurrency = params.fromCurrency || 'AUD';
-  const toCurrency = params.toCurrency || 'GBP';
+  const fromCurrency = params.fromCurrency || "AUD";
+  const toCurrency = params.toCurrency || "GBP";
   const currencyValue = parseInt(params.currencyValue, 10) || 0;
   const [customerRate, setCustomerRate] = useState(0);
 
@@ -66,10 +66,25 @@ const QuickQuoteResult = ({ location }) => {
   const toCurrencyValue = currencyValue * customerRate;
   const toCurrencyFormatted = formatNumber(toCurrencyValue.toFixed(2));
 
-  const Result = () => <SmallHeading>OFX Customer Rate</SmallHeading>;
+  const Result = () => (
+    <>
+      <SmallHeading id="quote-success">OFX Customer Rate</SmallHeading>{" "}
+      <ExchangeRateHeading id="customer-rate">{customerRate}</ExchangeRateHeading>
+      <div>
+        <SmallHeading>From</SmallHeading>
+        <CurrencyHeading id="from-currency">
+          {fromCurrency} <span>{fromCurrencyFormatted}</span>
+        </CurrencyHeading>
+        <SmallHeading>To</SmallHeading>
+        <CurrencyHeading id="to-currency">
+          {toCurrency} <span>{toCurrencyFormatted}</span>
+        </CurrencyHeading>
+      </div>
+    </>
+  );
 
   const Error = () => (
-    <SmallHeading>
+    <SmallHeading id="quote-error">
       Error: OFX Does Not Convert Money To {toCurrency}
     </SmallHeading>
   );
@@ -78,17 +93,7 @@ const QuickQuoteResult = ({ location }) => {
     <QuickQuoteLayout contentBgColour="#fbfbfb">
       <ResultContainer>
         {toCurrencyValue ? <Result /> : <Error />}
-        <ExchangeRateHeading>{customerRate}</ExchangeRateHeading>
-        <div>
-          <SmallHeading>From</SmallHeading>
-          <CurrencyHeading>
-            {fromCurrency} <span>{fromCurrencyFormatted}</span>
-          </CurrencyHeading>
-          <SmallHeading>To</SmallHeading>
-          <CurrencyHeading>
-            {toCurrency} <span>{toCurrencyFormatted}</span>
-          </CurrencyHeading>
-        </div>
+
         <ButtonContainer>
           <Button as={Link} to="/">
             Start New Quote
